@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export default function home() {
-  return <h2>Manatee</h2>;
+  return <h2>Home Page</h2>;
 }
