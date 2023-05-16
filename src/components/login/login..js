@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { DASHBOARD } from "../../common/constant";
 import { withRouter } from "../../common/withRouter";
 import { requestLoginDetails, retrieveTesting } from "../../actions/testAction";
+import { encryptData } from "../../common/encryption";
 
 class Login extends Component {
   constructor(props) {
@@ -38,9 +39,11 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // TODO: Send the login credentials to the server using fetch or axios
-    this.props.checkUserDetails();
-    console.log(this.state.username + this.state.password);
+    const userDetails = {
+      username: this.state.username,
+      key: encryptData(this.state.password),
+    };
+    this.props.checkUserDetails(userDetails);
   }
 
   handleRedirection() {
@@ -115,8 +118,8 @@ const mapDispatchToProps = (dispatch) => ({
   increment: () => {
     dispatch(retrieveTesting());
   },
-  checkUserDetails: () => {
-    dispatch(requestLoginDetails());
+  checkUserDetails: (userDetails) => {
+    dispatch(requestLoginDetails(userDetails));
   },
 });
 

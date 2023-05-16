@@ -1,4 +1,6 @@
 const express = require("express");
+const apiRoutes = require("./routes/index");
+
 const app = express();
 const port = 5000;
 
@@ -12,9 +14,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/api/login/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/api", apiRoutes.router);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
