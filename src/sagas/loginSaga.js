@@ -8,9 +8,9 @@ import { loginApi } from "../api/login";
 function* loginSaga(action) {
   try {
     const response = yield call(loginApi, action);
+    yield put(retrieveLoginDetails(response));
   } catch (e) {
-  } finally {
-    yield put(retrieveLoginDetails());
+    console.log(e);
   }
 }
 

@@ -24,12 +24,17 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.loginDetails !== state.loginDetails) {
-      //Change in props
       return {
         loginDetails: props.loginDetails,
       };
     }
     return null; // No change to state
+  }
+
+  componentDidUpdate() {
+    if (this.state.loginDetails?.role) {
+      this.handleRedirection();
+    }
   }
 
   handleChange(event) {
@@ -54,7 +59,6 @@ class Login extends Component {
   }
 
   render() {
-    let counter = this.props.counter;
     return (
       // <div className="login-container">
       //   <p>Counter: {counter}</p>
@@ -106,11 +110,23 @@ class Login extends Component {
       <div id="loginform" className="login-container">
         <FormHeader title="Login" />
         <div>
-          <FormInput description="Username" placeholder="Enter your username" type="text" name="username"
-              value={this.state.username} onChange={this.handleChange} />
-          <FormInput description="Password" placeholder="Enter your password" type="password"  name="password"
-              value={this.state.password} onChange={this.handleChange}/>
-          <FormButton title="Log in" submitHandler={this.handleSubmit}/>
+          <FormInput
+            description="Username"
+            placeholder="Enter your username"
+            type="text"
+            name="username"
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
+          <FormInput
+            description="Password"
+            placeholder="Enter your password"
+            type="password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <FormButton title="Log in" submitHandler={this.handleSubmit} />
         </div>
       </div>
     );
