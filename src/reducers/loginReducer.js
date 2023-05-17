@@ -1,13 +1,9 @@
 import { RETRIEVE_LOGIN_DETAILS } from "../actions/testAction";
 
-const loginDetails = (state = 5, action) => {
+const loginDetails = (state = {}, action) => {
   switch (action.type) {
     case RETRIEVE_LOGIN_DETAILS:
-      let userObj = {
-        userName: "Akshay",
-      };
-      return userObj;
-      break;
+      return (state = { ...state, ...action.payload.data });
     default:
       return state;
   }

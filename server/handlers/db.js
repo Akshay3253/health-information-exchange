@@ -1,7 +1,7 @@
-export const getUserDetailsFromDatabase = async (payload) => {
+export const getUserDetailsFromDatabase = async (data) => {
   return new Promise((resolve, reject) => {
     let userData = {
-      userName: "Akshay",
+      userName: data.payload.username,
       emailId: "akshay@gmail.com",
       role: "Physician",
     };
