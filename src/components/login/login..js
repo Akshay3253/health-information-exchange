@@ -24,7 +24,6 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.loginDetails !== state.loginDetails) {
-      console.log(props.loginDetails);
       //Change in props
       return {
         loginDetails: props.loginDetails,
@@ -104,7 +103,7 @@ class Login extends Component {
       //     <button type="submit">Login</button>
       //   </form>
       // </div>
-      <div id="loginform" class="login-container">
+      <div id="loginform" className="login-container">
         <FormHeader title="Login" />
         <div>
           <FormInput description="Username" placeholder="Enter your username" type="text" name="username"

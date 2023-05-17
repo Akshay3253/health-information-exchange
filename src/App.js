@@ -1,16 +1,21 @@
 import "./App.css";
+import "./styles/bootstrap.min.css";
 import Login from "./components/login/login.";
 import Home from "./components/home/home";
 import UploadImage from "./components/uploadimages/uploadimage";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import { DASHBOARD, LOGIN, IMAGEUPLOAD } from "./common/constant";
 import Footer from "./components/reusable/footer";
+import Header from "./components/reusable/header";
 
 function App() {
   return (
     <BrowserRouter>
-      <nav>
-        <ul>
+    <div>
+        <Header />
+        
+    </div>
+        {/* <ul>
           <li>
             <Link to={LOGIN}>Login</Link>
           </li>
@@ -22,6 +27,8 @@ function App() {
           </li>
         </ul>
       </nav>
+        </ul> */}
+     
       <div className="App-footer">
         <Footer />
       </div>

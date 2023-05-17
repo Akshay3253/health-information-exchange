@@ -8,7 +8,6 @@ import { loginApi } from "../api/login";
 function* loginSaga(action) {
   try {
     const response = yield call(loginApi, action);
-    console.log("Response received " + JSON.stringify(response));
   } catch (e) {
   } finally {
     yield put(retrieveLoginDetails());
