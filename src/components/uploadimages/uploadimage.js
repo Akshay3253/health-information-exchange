@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import './uploadimage.css'; // Import the CSS file for styling
+import React, { useState } from "react";
+import "./uploadimage.css"; // Import the CSS file for styling
 
 const MyForm = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dob, setDob] = useState('');
-  const [gender, setGender] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
   const [files, setFiles] = useState([]);
 
   const handleSubmit = (e) => {
@@ -13,43 +13,36 @@ const MyForm = () => {
 
     // Validate the mandatory fields
     if (!firstName || !lastName || !dob || !gender) {
-      alert('Please fill in all mandatory fields.');
+      alert("Please fill in all mandatory fields.");
       return;
     }
 
-    // Perform further actions, such as submitting the form data or making API calls
-    // You can access the field values using the state variables: firstName, lastName, dob, gender, and files
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('DOB:', dob);
-    console.log('Gender:', gender);
-    console.log('Files:', files);
-
     // Reset the form
-    setFirstName('');
-    setLastName('');
-    setDob('');
-    setGender('');
+    setFirstName("");
+    setLastName("");
+    setDob("");
+    setGender("");
     setFiles([]);
 
-    alert('Images uploaded for the patient successfully.');
+    alert("Images uploaded for the patient successfully.");
   };
 
   const handleFileChange = (e) => {
     const fileList = Array.from(e.target.files);
     // Check file size before adding to state
-    const filteredFiles = fileList.filter((file) => file.size <= 10 * 1024 * 1024); // 10MB limit
+    const filteredFiles = fileList.filter(
+      (file) => file.size <= 10 * 1024 * 1024
+    ); // 10MB limit
     setFiles(filteredFiles);
   };
 
   const handleClear = () => {
-    setFirstName('');
-    setLastName('');
-    setDob('');
-    setGender('');
+    setFirstName("");
+    setLastName("");
+    setDob("");
+    setGender("");
     setFiles([]);
   };
-
 
   return (
     <form className="my-form" onSubmit={handleSubmit}>
@@ -99,22 +92,19 @@ const MyForm = () => {
       </div>
       <div className="form-group">
         <label htmlFor="file">File Upload (Max 10MB):</label>
-        <input
-          type="file"
-          id="file"
-          onChange={handleFileChange}
-          multiple
-        />
+        <input type="file" id="file" onChange={handleFileChange} multiple />
       </div>
       <div className="file-list">
-        <strong>Selected Files:</strong>
+        {files.length > 0 ? <strong>Selected Files:</strong> : null}
         {files.map((file, index) => (
-        <div key={index}>{file.name}</div>
+          <div key={index}>{file.name}</div>
         ))}
       </div>
       <div className="form-buttons">
         <button type="submit">Submit</button>
-        <button type="button" onClick={handleClear}>Clear</button>
+        <button type="button" onClick={handleClear}>
+          Clear
+        </button>
       </div>
     </form>
   );

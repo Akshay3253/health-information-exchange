@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootSaga from "./sagas";
+import "./styles/bootstrap.min.css";
 
 const sagaMiddleware = createSagaMiddleware();
 

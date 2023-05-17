@@ -43,7 +43,7 @@
 
 footer {
   position: fixed;
-  background-color: white;
+  background-color: #f8f9fa !important;
   bottom: 0;
   left: 0;
   right: 0;

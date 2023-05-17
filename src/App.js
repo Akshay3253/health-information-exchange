@@ -1,12 +1,9 @@
 import "./App.css";
-import "./styles/bootstrap.min.css";
 import Login from "./components/login/login.";
-import Home from "./components/home/home";
 import UploadImage from "./components/uploadimages/uploadimage";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DASHBOARD, LOGIN, BASE, IMAGEUPLOAD } from "./common/constant";
 import Footer from "./components/reusable/footer";
-import Dashboard from "./components/dashboard/dashboard";
 import withAuthCheck from "./components/reusable/withAuthenticationCheck";
 import home from "./components/home/home";
 import dashboard from "./components/dashboard/dashboard";
@@ -40,8 +37,13 @@ function App() {
         <Route exact path={BASE} Component={withAuthCheck(home)} />
         <Route exact path={LOGIN} element={<Login />} />
         <Route exact path={DASHBOARD} Component={withAuthCheck(dashboard)} />
+        <Route
+          exact
+          path={IMAGEUPLOAD}
+          // Component={withAuthCheck(UploadImage)}
+          element={<UploadImage />}
+        />
         <Route path="*" element={<PageNotFound />} />
-        <Route exact path={IMAGEUPLOAD} element={<UploadImage />} />
       </Routes>
     </BrowserRouter>
   );
