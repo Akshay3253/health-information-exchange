@@ -31,6 +31,8 @@ const MyForm = () => {
     setDob('');
     setGender('');
     setFiles([]);
+
+    alert('Images uploaded for the patient successfully.');
   };
 
   const handleFileChange = (e) => {
@@ -47,6 +49,7 @@ const MyForm = () => {
     setGender('');
     setFiles([]);
   };
+
 
   return (
     <form className="my-form" onSubmit={handleSubmit}>
