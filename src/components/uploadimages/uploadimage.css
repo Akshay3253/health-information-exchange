@@ -17,7 +17,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
+.form-group>input[type="text"],
 input[type="date"],
 select {
   width: 100%;
