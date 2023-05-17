@@ -49,6 +49,7 @@ const MyForm = () => {
           type="text"
           id="firstName"
           value={firstName}
+          placeholder="Enter Patient's First Name"
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
@@ -59,6 +60,7 @@ const MyForm = () => {
           type="text"
           id="lastName"
           value={lastName}
+          placeholder="Enter Patient's Last Name"
           onChange={(e) => setLastName(e.target.value)}
           required
         />
@@ -69,6 +71,7 @@ const MyForm = () => {
           type="date"
           id="dob"
           value={dob}
+          placeholder="Enter Patient's DOB"
           onChange={(e) => setDob(e.target.value)}
           required
         />
@@ -78,6 +81,7 @@ const MyForm = () => {
         <select
           id="gender"
           value={gender}
+          placeholder="Enter Patient's Gender"
           onChange={(e) => setGender(e.target.value)}
           required
         >
