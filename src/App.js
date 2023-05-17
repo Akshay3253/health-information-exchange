@@ -20,19 +20,6 @@ function App() {
       <div>
         <Header />
       </div>
-      {/* <ul>
-          <li>
-            <Link to={LOGIN}>Login</Link>
-          </li>
-          <li>
-            <Link to={DASHBOARD}>Dashboard</Link>
-          </li>
-          <li>
-            <Link to={IMAGEUPLOAD}>Upload Images</Link>
-          </li>
-        </ul>
-      </nav>
-        </ul> */}
 
       <div className="App-footer">
         <Footer />
