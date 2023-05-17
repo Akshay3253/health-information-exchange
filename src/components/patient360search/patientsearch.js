@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import './uploadimage.css'; // Import the CSS file for styling
+import './patientsearch.css'; // Import the CSS file for styling
 
 const MyForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [dob, setDob] = useState('');
   const [gender, setGender] = useState('');
-  const [files, setFiles] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,23 +22,14 @@ const MyForm = () => {
     console.log('Last Name:', lastName);
     console.log('DOB:', dob);
     console.log('Gender:', gender);
-    console.log('Files:', files);
 
     // Reset the form
     setFirstName('');
     setLastName('');
     setDob('');
     setGender('');
-    setFiles([]);
 
-    alert('Images uploaded for the patient successfully.');
-  };
-
-  const handleFileChange = (e) => {
-    const fileList = Array.from(e.target.files);
-    // Check file size before adding to state
-    const filteredFiles = fileList.filter((file) => file.size <= 10 * 1024 * 1024); // 10MB limit
-    setFiles(filteredFiles);
+    alert('Seaching patient...');
   };
 
   const handleClear = () => {
@@ -47,13 +37,12 @@ const MyForm = () => {
     setLastName('');
     setDob('');
     setGender('');
-    setFiles([]);
   };
 
 
   return (
     <form className="my-form" onSubmit={handleSubmit}>
-      <h2 className="form-heading">Clinical Notes Upload</h2>
+      <h2 className="form-heading">Patient Search</h2>
       <div className="form-group">
         <label htmlFor="firstName">First Name:</label>
         <input
@@ -98,24 +87,9 @@ const MyForm = () => {
           <option value="other">Other</option>
         </select>
       </div>
-      <div className="form-group">
-        <label htmlFor="file">File Upload (Max 10MB):</label>
-        <input
-          type="file"
-          id="file"
-          onChange={handleFileChange}
-          multiple
-        />
-      </div>
-      <div className="file-list">
-        <strong>Selected Files:</strong>
-        {files.map((file, index) => (
-        <div key={index}>{file.name}</div>
-        ))}
-      </div>
       <div className="form-buttons">
-        <button type="submit">Submit</button>
-        <button type="button" onClick={handleClear}>Clear</button>
+        <button type="submit" className="search-form-buttons">Search Patient</button>
+        <button type="button" className="clear-form-buttons" onClick={handleClear}>Clear</button>
       </div>
     </form>
   );

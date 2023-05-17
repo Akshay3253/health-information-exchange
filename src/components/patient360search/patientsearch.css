@@ -1,0 +1,63 @@
+.my-form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: #FFFFFF;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .form-group>input[type="text"],
+  input[type="date"],
+  select {
+    width: 100%;
+    padding: 5px;
+  }
+  
+  .file-list {
+    margin-top: 10px;
+  }
+  
+  .file-list div {
+    margin-bottom: 5px;
+  }
+  
+  .form-buttons {
+    margin-top: 20px;
+  }
+  
+  .form-heading{
+    text-align: center;
+    font-family: 'open sans', sans-serif;
+    padding: 2rem 0;
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  body{
+    background: rgb(34,193,195);
+    background: linear-gradient(135deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%);
+    font-family: "work sans";
+  }
+  
+  html{
+    font-size: 100%;
+  }
+  
+  #headerTitle{
+    text-align: center;
+    font-family: 'open sans', sans-serif;
+    padding: 2rem 0;
+    margin: 0;
+    font-size: 2rem;
+  }
