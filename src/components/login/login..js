@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./Login.css";
 import { connect } from "react-redux";
 import { DASHBOARD } from "../../common/constant";
 import { withRouter } from "../../common/withRouter";
