@@ -16,6 +16,9 @@ import home from "./components/home/home";
 import dashboard from "./components/dashboard/dashboard";
 import Header from "./components/reusable/header";
 import PageNotFound from "./components/reusable/pageNotFound";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {faUpload, faSearch} from "@fortawesome/free-solid-svg-icons"
+library.add(faUpload,faSearch);
 
 function App() {
   return (
