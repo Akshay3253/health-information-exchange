@@ -1,8 +1,15 @@
 import "./App.css";
 import Login from "./components/login/login.";
 import UploadImage from "./components/uploadimages/uploadimage";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { DASHBOARD, LOGIN, BASE, IMAGEUPLOAD } from "./common/constant";
+import PatientSearch from "./components/patient360search/patientsearch";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import {
+  DASHBOARD,
+  LOGIN,
+  BASE,
+  IMAGEUPLOAD,
+  PATIENTSEARCH,
+} from "./common/constant";
 import Footer from "./components/reusable/footer";
 import withAuthCheck from "./components/reusable/withAuthenticationCheck";
 import home from "./components/home/home";
@@ -16,19 +23,6 @@ function App() {
       <div>
         <Header />
       </div>
-      {/* <ul>
-          <li>
-            <Link to={LOGIN}>Login</Link>
-          </li>
-          <li>
-            <Link to={DASHBOARD}>Dashboard</Link>
-          </li>
-          <li>
-            <Link to={IMAGEUPLOAD}>Upload Images</Link>
-          </li>
-        </ul>
-      </nav>
-        </ul> */}
 
       <div className="App-footer">
         <Footer />
@@ -44,6 +38,8 @@ function App() {
           element={<UploadImage />}
         />
         <Route path="*" element={<PageNotFound />} />
+        <Route exact path={IMAGEUPLOAD} element={<UploadImage />} />
+        <Route exact path={PATIENTSEARCH} element={<PatientSearch />} />
       </Routes>
     </BrowserRouter>
   );
