@@ -2,7 +2,7 @@ import "./App.css";
 import Login from "./components/login/login.";
 import UploadImage from "./components/uploadimages/uploadimage";
 import PatientSearch from "./components/patient360search/patientsearch";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   DASHBOARD,
   LOGIN,
@@ -17,8 +17,8 @@ import dashboard from "./components/dashboard/dashboard";
 import Header from "./components/reusable/header";
 import PageNotFound from "./components/reusable/pageNotFound";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {faUpload, faSearch} from "@fortawesome/free-solid-svg-icons"
-library.add(faUpload,faSearch);
+import { faUpload, faSearch } from "@fortawesome/free-solid-svg-icons";
+library.add(faUpload, faSearch);
 
 function App() {
   return (
@@ -37,12 +37,14 @@ function App() {
         <Route
           exact
           path={IMAGEUPLOAD}
-          // Component={withAuthCheck(UploadImage)}
-          element={<UploadImage />}
+          Component={withAuthCheck(UploadImage)}
+        />
+        <Route
+          exact
+          path={PATIENTSEARCH}
+          Component={withAuthCheck(PatientSearch)}
         />
         <Route path="*" element={<PageNotFound />} />
-        <Route exact path={IMAGEUPLOAD} element={<UploadImage />} />
-        <Route exact path={PATIENTSEARCH} element={<PatientSearch />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import FormInput from "../reusable/formInput";
 import FormButton from "../reusable/formButton";
 import FormHeader from "../reusable/formHeader";
 
-const MyForm = () => {
+const UploadImage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
@@ -125,21 +124,7 @@ const MyForm = () => {
         </div>
       </div>
     </div>
-    // <form className="my-form" onSubmit={handleSubmit}>
-    //   <div className="file-list">
-    //     {files.length > 0 ? <strong>Selected Files:</strong> : null}
-    //     {files.map((file, index) => (
-    //       <div key={index}>{file.name}</div>
-    //     ))}
-    //   </div>
-    //   <div className="form-buttons">
-    //     <button type="submit">Submit</button>
-    //     <button type="button" onClick={handleClear}>
-    //       Clear
-    //     </button>
-    //   </div>
-    // </form>
   );
 };
 
-export default MyForm;
+export default UploadImage;
