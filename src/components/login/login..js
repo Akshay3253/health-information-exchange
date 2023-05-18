@@ -107,7 +107,7 @@ class Login extends Component {
       //     <button type="submit">Login</button>
       //   </form>
       // </div>
-      <div id="loginform" className="login-container">
+      <div id="loginform">
         <FormHeader title="Login" />
         <div>
           <FormInput

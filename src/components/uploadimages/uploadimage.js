@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "./uploadimage.css"; // Import the CSS file for styling
+import FormInput from "../reusable/formInput";
+import FormButton from "../reusable/formButton";
+import FormHeader from "../reusable/formHeader";
 
 const MyForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -45,68 +47,98 @@ const MyForm = () => {
   };
 
   return (
-    <form className="my-form" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
+    <div id="uploadForm">
+      <FormHeader title="Upload Files" />
+      <div className="container">
+        <div className="customColumn">
+          <div className="col-6">
+            <label>First Name*</label>
+            <input
+              type="text"
+              placeholder="Enter patient's first name"
+              name="fname"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="col-6">
+            <label>Last Name*</label>
+            <input
+              placeholder="Enter patient's last name"
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="customColumn">
+          <div className="col-6">
+            <label>Date of Birth*</label>
+            <input
+              placeholder="Enter patient's date of birth"
+              type="date"
+              name="dob"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+            />
+          </div>
+          <div className="col-6">
+            <label>Gender*</label>
+            <select
+              id="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              required
+            >
+              <option disabled value="">
+                Select patient's gender
+              </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div className="customColumn">
+          <div className="col-6">
+            <label>File Upload (Max 10MB):</label>
+            <input type="file" id="file" onChange={handleFileChange} multiple />
+          </div>
+
+          <div className="col-6">
+            {files.length > 0 ? <label>Selected Files:</label> : null}
+            {files.map((file, index) => (
+              <div key={index}>{file.name}</div>
+            ))}
+          </div>
+        </div>
+
+        <div className="customColumn">
+          <div className="col-6">
+            <FormButton title="Submit" submitHandler={handleSubmit} />
+          </div>
+
+          <div className="col-6">
+            <FormButton title="Clear" submitHandler={handleClear} />
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="dob">Date of Birth:</label>
-        <input
-          type="date"
-          id="dob"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="gender">Gender:</label>
-        <select
-          id="gender"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          required
-        >
-          <option value="">Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="file">File Upload (Max 10MB):</label>
-        <input type="file" id="file" onChange={handleFileChange} multiple />
-      </div>
-      <div className="file-list">
-        {files.length > 0 ? <strong>Selected Files:</strong> : null}
-        {files.map((file, index) => (
-          <div key={index}>{file.name}</div>
-        ))}
-      </div>
-      <div className="form-buttons">
-        <button type="submit">Submit</button>
-        <button type="button" onClick={handleClear}>
-          Clear
-        </button>
-      </div>
-    </form>
+    </div>
+    // <form className="my-form" onSubmit={handleSubmit}>
+    //   <div className="file-list">
+    //     {files.length > 0 ? <strong>Selected Files:</strong> : null}
+    //     {files.map((file, index) => (
+    //       <div key={index}>{file.name}</div>
+    //     ))}
+    //   </div>
+    //   <div className="form-buttons">
+    //     <button type="submit">Submit</button>
+    //     <button type="button" onClick={handleClear}>
+    //       Clear
+    //     </button>
+    //   </div>
+    // </form>
   );
 };
 

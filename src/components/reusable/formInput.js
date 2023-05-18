@@ -1,5 +1,5 @@
 var FormInput = (props) => (
-  <div className="row">
+  <div className="customRow">
     <label>{props.description}</label>
     <input
       type={props.type}
