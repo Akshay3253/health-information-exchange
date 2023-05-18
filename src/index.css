@@ -29,9 +29,11 @@ html {
     max-height: 700px;
     width: 30%;
     height: 60%;
-    margin: 50px auto;
-    background-color: #FFFFFF;
+    margin: 150px auto;
+    background-color: #ffffff;
     border-radius: 25px;
+    border-color: gray;
+   border-style: solid;
 }
 
  #loginform {
@@ -40,9 +42,11 @@ html {
    max-height: 700px;
    width: 30%;
    height: 60%;
-   margin: 100px auto;
-   background-color: #FFFFFF;
+   margin: 150px auto;
+   background-color: #ffffff;
    border-radius: 25px;
+   border-color: gray;
+   border-style: solid;
  }
 
  #headerTitle {
@@ -59,7 +63,8 @@ html {
    align-items: center;
    padding-top: 2rem;
    max-width: 100%;
-
+   padding-left: 1rem;
+   padding-right: 1rem;
  }
 
  .customRow input, select {
