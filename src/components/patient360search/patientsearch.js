@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import FormInput from "../reusable/formInput";
 import FormButton from "../reusable/formButton";
 import FormHeader from "../reusable/formHeader";
 
-const MyForm = () => {
+const PatientSearch = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
@@ -103,4 +102,4 @@ const MyForm = () => {
   );
 };
 
-export default MyForm;
+export default PatientSearch;
