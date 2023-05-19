@@ -175,6 +175,9 @@ html {
               margin: 100px auto;
               background-color: #FFFFFF;
               border-radius: 25px;
+              border-color: gray;
+              border-style: solid;
+              max-width: 800px;
          }
 
   .marginTop100{
