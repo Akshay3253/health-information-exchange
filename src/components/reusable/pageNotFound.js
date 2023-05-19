@@ -2,19 +2,13 @@ import React, { Component } from "react";
 
 import Card from "react-bootstrap/Card";
 
-const cardStyle = {
-  borderWidth: "5px",
-  margin: "10px",
-};
-
 class pageNotFound extends Component {
   render() {
     return (
       <main id="main" role="main">
         <div id="FourZeroFour">
           <Card
-            className="text-center"
-            style={cardStyle}
+            className="text-center marginTop100"
             bg="light"
             border="warning"
           >

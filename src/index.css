@@ -22,15 +22,31 @@ html {
   font-size: 100%;
 }
 
+#cardSetUp
+{
+    max-width: 500px;
+    min-width: 300px;
+    max-height: 700px;
+    width: 30%;
+    height: 60%;
+    margin: 11% auto;
+    background-color: #ffffff;
+    border-radius: 25px;
+    border-color: gray;
+   border-style: solid;
+}
+
  #loginform {
    max-width: 500px;
    min-width: 300px;
    max-height: 700px;
    width: 30%;
    height: 60%;
-   margin: 100px auto;
-   background-color: #FFFFFF;
+   margin: 11% auto;
+   background-color: #ffffff;
    border-radius: 25px;
+   border-color: gray;
+   border-style: solid;
  }
 
  #headerTitle {
@@ -47,7 +63,8 @@ html {
    align-items: center;
    padding-top: 2rem;
    max-width: 100%;
-
+   padding-left: 1rem;
+   padding-right: 1rem;
  }
 
  .customRow input, select {
@@ -159,3 +176,17 @@ html {
               background-color: #FFFFFF;
               border-radius: 25px;
          }
+
+  .marginTop100{
+    margin: 100px auto;
+  }
+
+  .cardStyle{
+    border-width: 2px;
+    margin: 10px;
+    border-radius: 25px;;
+  }
+
+  .cursorPointer{
+    cursor: pointer;
+  }
