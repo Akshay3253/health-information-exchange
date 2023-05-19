@@ -1,15 +1,58 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import "./header.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import { withRouter } from "../../common/withRouter";
+import { Component } from "react";
+import { DASHBOARD } from "../../common/constant";
 
-const Header = () => {
-  return (
-    <Navbar style={{backgroundColor:"rgb(232 230 230)"}} variant="light" fixed="top">
-      <Container className="justify-content-start m-0">
-        <img alt="" src="/logo-HIE.png" className="nav-logo pt-3" />
-      </Container>
-    </Navbar>
-  );
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.handleRedirection = this.handleRedirection.bind(this);
+  }
+
+  handleRedirection(url) {
+    const { navigate } = this.props;
+    navigate(url);
+  }
+
+  render() {
+    return (
+      <Navbar
+        style={{ backgroundColor: "rgb(232 230 230)" }}
+        variant="light"
+        fixed="top"
+      >
+        <Container className="justify-content-start m-0">
+          <img alt="" src="/logo-HIE.png" className="nav-logo pt-3" />
+        </Container>
+        {!this.props.loginDetails?.name ? null : (
+          <Container className="justify-content-end m-0">
+            <FontAwesomeIcon
+              icon="home"
+              size="2x"
+              onClick={() => {
+                this.handleRedirection(DASHBOARD);
+              }}
+              className="cursorPointer"
+            />
+            <FontAwesomeIcon icon="user" size="2x" className="ml-3" />
+            <p className="userIcon">{this.props.loginDetails.name}</p>
+          </Container>
+        )}
+      </Navbar>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  const loginDetails = state.loginDetails;
+  return {
+    loginDetails,
+  };
 };
 
-export default Header;
+export default withRouter(connect(mapStateToProps)(Header));

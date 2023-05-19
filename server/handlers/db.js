@@ -4,6 +4,7 @@ export const getUserDetailsFromDatabase = async (data) => {
       userName: data.payload.username,
       emailId: "akshay@gmail.com",
       role: "Physician",
+      name: "Min Lee",
     };
     resolve(userData);
   });
