@@ -2,6 +2,7 @@ import "./App.css";
 import Login from "./components/login/login.";
 import UploadImage from "./components/uploadimages/uploadimage";
 import PatientSearch from "./components/patient360search/patientsearch";
+import MedicationData from "./components/patient360search/medicationData";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   DASHBOARD,
@@ -9,6 +10,7 @@ import {
   BASE,
   IMAGEUPLOAD,
   PATIENTSEARCH,
+  MEDICATIONDATA
 } from "./common/constant";
 import Footer from "./components/reusable/footer";
 import withAuthCheck from "./components/reusable/withAuthenticationCheck";
@@ -48,6 +50,11 @@ function App() {
           exact
           path={PATIENTSEARCH}
           Component={withAuthCheck(PatientSearch)}
+        />
+        <Route
+          exact
+          path={MEDICATIONDATA}
+          Component={MedicationData}
         />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
