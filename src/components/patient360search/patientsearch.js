@@ -83,6 +83,10 @@ const PatientSearch = () => {
     setLastName("");
     setDob("");
     setGender("");
+    document.getElementById("fnameNameBlank").innerHTML="";
+    document.getElementById("lnameNameBlank").innerHTML="";
+    document.getElementById("dobBlank").innerHTML="";
+    document.getElementById("genderBlank").innerHTML="";
   };
 
   return (

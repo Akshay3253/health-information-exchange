@@ -108,6 +108,11 @@ const UploadImage = () => {
     setDob("");
     setGender("");
     setFiles([]);
+    document.getElementById("fnameNameBlank").innerHTML="";
+    document.getElementById("lnameNameBlank").innerHTML="";
+    document.getElementById("dobBlank").innerHTML="";
+    document.getElementById("genderBlank").innerHTML="";
+    document.getElementById("fileBlank").innerHTML="";
   };
 
   return (
