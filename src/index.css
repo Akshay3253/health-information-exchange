@@ -236,7 +236,7 @@ html {
     margin-top: 10px;
     border: 3px solid;
     background-color: #ffffff;
-    border-radius: 25px;
+    border-radius: 15px;
     border-collapse: separate !important;
     border-color: gray;
     border-style: solid;
@@ -257,19 +257,19 @@ html {
   }
 
   .medication-table th:first-child {
-    border-radius: 25px 0 0 0;
+    border-radius: 15px 0 0 0;
   }
   
   .medication-table th:last-child {
-    border-radius: 0 25px 0 0;
+    border-radius: 0 15px 0 0;
   }
 
   .medication-table tr:last-child td:first-child {
-    border-radius: 0 0 0 25px;
+    border-radius: 0 0 0 15px;
   }
   
   .medication-table tr:last-child td:last-child {
-    border-radius: 0 0 25px 0;
+    border-radius: 0 0 15px 0;
   }
 
   .medication-table tr:nth-child(even) {
