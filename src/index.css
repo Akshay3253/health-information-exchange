@@ -67,6 +67,14 @@ html {
    padding-right: 1rem;
  }
 
+ .customError {
+  color: red;
+  height: 15px;
+  font-size: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem
+ }
+
  .customRow input, select {
    width: 80%;
    box-sizing: border-box;

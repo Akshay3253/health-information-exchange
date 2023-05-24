@@ -15,6 +15,8 @@ class Login extends Component {
       username: "",
       password: "",
       loginDetails: "",
+      usernameError: false,
+      passwordError: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,18 +25,23 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.loginDetails !== state.loginDetails) {
+      if (props.loginDetails?.role) {
+        const { navigate } = props;
+        navigate(DASHBOARD);
+      }
       return {
         loginDetails: props.loginDetails,
       };
     }
+
     return null; // No change to state
   }
 
-  componentDidUpdate() {
-    if (this.state.loginDetails?.role) {
-      this.handleRedirection();
-    }
-  }
+  // componentDidUpdate() {
+  //     if (this.state.loginDetails?.role!=='' & this.state.usernameError===false & this.state.passwordError===false) {
+  //     this.handleRedirection();
+  //   }
+  // }
 
   handleChange(event) {
     const { name, value } = event.target;
@@ -49,7 +56,39 @@ class Login extends Component {
       username: this.state.username,
       key: encryptData(this.state.password),
     };
-    this.props.checkUserDetails(userDetails);
+    if (this.validateUserName(this.state.username) & this.validatePwd(this.state.password)) {
+      this.props.checkUserDetails(userDetails);
+    }
+  }
+
+  validatePwd(pwd) {
+    if (pwd === '' || pwd.length < 0) {
+      this.setState({
+        passwordError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        passwordError: false,
+      });
+      return true;
+    }
+  }
+
+  validateUserName(userName) {
+    if (userName === '' || userName.length < 0) {
+      this.setState({
+        usernameError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        usernameError: false,
+      });
+      return true;
+    }
   }
 
   handleRedirection() {
@@ -58,54 +97,8 @@ class Login extends Component {
   }
 
   render() {
-    return (
-      // <div className="login-container">
-      //   <p>Counter: {counter}</p>
-      //   <button
-      //     className="btn btn-outline-primary"
-      //     // onClick={() => dispatch(allActions.counterActions.increment())}
-      //     onClick={() => {
-      //       this.props.increment();
-      //     }}
-      //   >
-      //     Increase Counter
-      //   </button>
 
-      //   <button
-      //     className="btn btn-outline-primary"
-      //     // onClick={() => dispatch(allActions.counterActions.increment())}
-      //     onClick={() => {
-      //       this.handleRedirection();
-      //     }}
-      //   >
-      //     DASHBOARD
-      //   </button>
-      //   <form onSubmit={this.handleSubmit}>
-      //     <div className="form-group">
-      //       <b>
-      //         <label htmlFor="username">Username:</label>
-      //       </b>
-      //       <input
-      //         type="text"
-      //         name="username"
-      //         value={this.state.username}
-      //         onChange={this.handleChange}
-      //       />
-      //     </div>
-      //     <div className="form-group">
-      //       <b>
-      //         <label htmlFor="password">Password:</label>
-      //       </b>
-      //       <input
-      //         type="password"
-      //         name="password"
-      //         value={this.state.password}
-      //         onChange={this.handleChange}
-      //       />
-      //     </div>
-      //     <button type="submit">Login</button>
-      //   </form>
-      // </div>
+    return (
       <div id="loginform">
         <FormHeader title="Login" />
         <div>
@@ -117,6 +110,7 @@ class Login extends Component {
             value={this.state.username}
             onChange={this.handleChange}
           />
+          {this.state.usernameError ? <label id="UsernameBlank" className="customError">Username can not be blank</label> : null}
           <FormInput
             description="Password"
             placeholder="Enter your password"
@@ -125,6 +119,7 @@ class Login extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           />
+          {this.state.passwordError ? <label id="PasswordBlank" className="customError">Password can not be blank</label> : null}
           <FormButton title="Log in" submitHandler={this.handleSubmit} />
         </div>
       </div>
