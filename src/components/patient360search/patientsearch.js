@@ -1,185 +1,192 @@
-import React, { useState } from "react";
-import FormButton from "../reusable/formButton";
+import React, { Component } from "react";
 import FormHeader from "../reusable/formHeader";
+import FormInput from "../reusable/formInput";
+import FormButton from "../reusable/formButton";
 
-const PatientSearch = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dob, setDob] = useState("");
-  const [gender, setGender] = useState("");
+class PatientSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: "",
+      lastName: "",
+      dob: "",
+      gender: "",
+      firstNameError: false,
+      lastNameError: false,
+      dobError: false,
+      genderError: false
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
 
-    // Validate the mandatory fields
-    if (
-      validFirstName(firstName, 1, 50) &
-      validLastName(lastName, 1, 50) &
-      validDOB(dob) &
-      validGender(gender)
-    ) {
-      // Reset the form
-      setFirstName("");
-      setLastName("");
-      setDob("");
-      setGender("");
-
+  handleSubmit(event) {
+    event.preventDefault();
+    const patientDetails = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      dob: this.state.dob,
+      gender: this.state.gender
+    };
+    if (this.validateFirstName(this.state.firstName) & this.validateLastName(this.state.lastName) & this.validateDob(this.state.dob) & this.validateGender(this.state.gender)) {
       alert("Searching patient.....");
-
-      return;
     }
+  }
 
-    function validFirstName(firstName, min, max) {
-      var uid_len = firstName.length;
-      if (uid_len === 0 || uid_len <= min || uid_len > max) {
-        document.getElementById("fnameNameBlank").innerHTML =
-          "First Name should be between "
-            .concat(min)
-            .concat(" to ")
-            .concat(max)
-            .concat(" characters");
-        return false;
-      } else {
-        document.getElementById("fnameNameBlank").innerHTML = "";
-      }
+  handleClear = () => {
+    this.setState({
+      firstName: "",
+      lastName: "",
+      dob: "",
+      gender: "",
+      firstNameError: false,
+      lastNameError: false,
+      dobError: false,
+      genderError: false
+    });
+  }
+
+  validateFirstName(firstName) {
+    if (firstName === '' || firstName.length < 0) {
+      this.setState({
+        firstNameError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        firstNameError: false,
+      });
       return true;
     }
+  }
 
-    function validLastName(lastName, min, max) {
-      var uid_len = lastName.length;
-      if (uid_len === 0 || uid_len <= min || uid_len > max) {
-        document.getElementById("lnameNameBlank").innerHTML =
-          "Last Name should be between "
-            .concat(min)
-            .concat(" to ")
-            .concat(max)
-            .concat(" characters");
-        return false;
-      } else {
-        document.getElementById("lnameNameBlank").innerHTML = "";
-      }
+  validateLastName(lastName) {
+    if (lastName === '' || lastName.length < 0) {
+      this.setState({
+        lastNameError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        lastNameError: false,
+      });
       return true;
     }
+  }
 
-    function validDOB(dob) {
-      var uid_len = dob.length;
-      if (uid_len === 0) {
-        document.getElementById("dobBlank").innerHTML =
-          "Date of birth cannot be blank";
-        return false;
-      } else {
-        document.getElementById("dobBlank").innerHTML = "";
-      }
+  validateDob(dob) {
+    if (dob === '' || dob.length < 0) {
+      this.setState({
+        dobError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        dobError: false,
+      });
       return true;
     }
+  }
 
-    function validGender(gender) {
-      var uid_len = gender.length;
-      if (uid_len === 0) {
-        document.getElementById("genderBlank").innerHTML =
-          "Gender cannot be blank";
-        return false;
-      } else {
-        document.getElementById("genderBlank").innerHTML = "";
-      }
+  validateGender(gender) {
+    if (gender === '' || gender.length < 0) {
+      this.setState({
+        genderError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        genderError: false,
+      });
       return true;
     }
-  };
+  }
 
-  const handleClear = () => {
-    setFirstName("");
-    setLastName("");
-    setDob("");
-    setGender("");
-    document.getElementById("fnameNameBlank").innerHTML = "";
-    document.getElementById("lnameNameBlank").innerHTML = "";
-    document.getElementById("dobBlank").innerHTML = "";
-    document.getElementById("genderBlank").innerHTML = "";
-  };
+  render() {
 
-  return (
-    <div id="uploadForm">
-      <FormHeader title="Search Patient" />
-      <div className="container">
+    return (
+      <div id="patientseatchform">
+        <FormHeader title="Search Patient" />
+        <div>
         <div className="customColumn">
-          <div className="col-6">
-            <label>First Name*</label>
-            <input
-              type="text"
-              placeholder="Enter patient's first name"
-              name="fname"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <label
-              id="fnameNameBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+        <div className="col-6">
+          <FormInput
+            description="First Name"
+            placeholder="Enter patient's first name"
+            type="text"
+            name="firstName"
+            value={this.state.firstName}
+            onChange={this.handleChange}
+          />
+          {this.state.firstNameError ? <label id="FirstNameBlank" className="customError">First Name can not be blank</label> : null}
+        </div>
+        <div className="col-6">
+          <FormInput
+            description="Last Name"
+            placeholder="Enter patient's last name"
+            type="text"
+            name="lastName"
+            value={this.state.lastName}
+            onChange={this.handleChange}
+          />
+          {this.state.lastNameError ? <label id="LastNameBlank" className="customError">Last Name can not be blank</label> : null}
+        </div>
+        </div>
+        <div className="customColumn">
+        <div className="col-6">
+          <FormInput
+            description="Date of Birth"
+            placeholder="Enter patient's date of birth"
+            type="date"
+            name="dob"
+            value={this.state.dob}
+            onChange={this.handleChange}
+          />
+          {this.state.dobError ? <label id="DobBlank" className="customError">Date of Birth can not be blank</label> : null}
+        </div>
+        <div className="col-6">
+          <div className="customRow">
+            <label>Gender</label>
+          <select
+            description="Gender"
+            placeholder="Select patient's gender"
+            type="select"
+            name="gender"
+            value={this.state.gender}
+            onChange={this.handleChange}
+          >
+          <option disabled value="">Select patient's gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+          </select>
           </div>
-          <div className="col-6">
-            <label>Last Name*</label>
-            <input
-              placeholder="Enter patient's last name"
-              type="text"
-              name="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <label
-              id="lnameNameBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+          {this.state.genderError ? <label id="GenderBlank" className="customError">Gender can not be blank</label> : null}
           </div>
         </div>
         <div className="customColumn">
-          <div className="col-6">
-            <label>Date of Birth*</label>
-            <input
-              placeholder="Enter patient's date of birth"
-              type="date"
-              name="dob"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-            />
-            <label
-              id="dobBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
-          </div>
-          <div className="col-6">
-            <label>Gender*</label>
-            <select
-              id="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            >
-              <option disabled value="">
-                Select patient's gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            <label
-              id="genderBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+        <div className="col-6">
+          <FormButton title="Search" submitHandler={this.handleSubmit} />
+        </div>
+        <div className="col-6">
+          <FormButton title="Clear" submitHandler={this.handleClear} />
           </div>
         </div>
-
-        <div className="customColumn">
-          <div className="col-6">
-            <FormButton title="Search" submitHandler={handleSubmit} />
-          </div>
-
-          <div className="col-6">
-            <FormButton title="Clear" submitHandler={handleClear} />
-          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default PatientSearch;
