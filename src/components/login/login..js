@@ -27,13 +27,15 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.loginDetails !== state.loginDetails) {
-      if (props.loginDetails?.userExists === true)
+      if (props.loginDetails?.userExists === true) {
+        const { navigate } = props;
+        navigate(DASHBOARD);
         return {
           loginDetails: props.loginDetails,
           redirectToHomeScreen: true,
           showInvalidUserMessage: false,
         };
-      else if (props.loginDetails?.userExists === false) {
+      } else if (props.loginDetails?.userExists === false) {
         return { showInvalidUserMessage: true };
       }
     }
@@ -100,9 +102,9 @@ class Login extends Component {
   }
 
   render() {
-    if (this.state.redirectToHomeScreen) {
-      this.handleRedirection();
-    }
+    // if (this.state.redirectToHomeScreen) {
+    //   this.handleRedirection();
+    // }
     return (
       <div id="loginform">
         <FormHeader title="Login" />
