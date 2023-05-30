@@ -12,7 +12,12 @@ const PatientSearch = () => {
     e.preventDefault();
 
     // Validate the mandatory fields
-    if (validFirstName(firstName,1,50) & validLastName(lastName,1,50) & validDOB(dob) & validGender(gender)) {
+    if (
+      validFirstName(firstName, 1, 50) &
+      validLastName(lastName, 1, 50) &
+      validDOB(dob) &
+      validGender(gender)
+    ) {
       // Reset the form
       setFirstName("");
       setLastName("");
@@ -20,62 +25,65 @@ const PatientSearch = () => {
       setGender("");
 
       alert("Searching patient.....");
-      
+
       return;
     }
 
-    function validFirstName(firstName,min,max){
+    function validFirstName(firstName, min, max) {
       var uid_len = firstName.length;
-      if (uid_len == 0 || uid_len <= min || uid_len > max)
-      {
-          document.getElementById("fnameNameBlank").innerHTML="First Name should be between ".concat(min).concat(" to ").concat(max).concat(" characters");
-          return false;
-      }
-      else{
-          document.getElementById("fnameNameBlank").innerHTML="";
+      if (uid_len === 0 || uid_len <= min || uid_len > max) {
+        document.getElementById("fnameNameBlank").innerHTML =
+          "First Name should be between "
+            .concat(min)
+            .concat(" to ")
+            .concat(max)
+            .concat(" characters");
+        return false;
+      } else {
+        document.getElementById("fnameNameBlank").innerHTML = "";
       }
       return true;
-  }
+    }
 
-    function validLastName(lastName,min,max){
+    function validLastName(lastName, min, max) {
       var uid_len = lastName.length;
-      if (uid_len == 0 || uid_len <= min || uid_len > max)
-      {
-          document.getElementById("lnameNameBlank").innerHTML="Last Name should be between ".concat(min).concat(" to ").concat(max).concat(" characters");
-          return false;
-      }
-      else{
-          document.getElementById("lnameNameBlank").innerHTML="";
+      if (uid_len === 0 || uid_len <= min || uid_len > max) {
+        document.getElementById("lnameNameBlank").innerHTML =
+          "Last Name should be between "
+            .concat(min)
+            .concat(" to ")
+            .concat(max)
+            .concat(" characters");
+        return false;
+      } else {
+        document.getElementById("lnameNameBlank").innerHTML = "";
       }
       return true;
-  }
+    }
 
-  function validDOB(dob){
-    var uid_len = dob.length;
-    if (uid_len == 0)
-    {
-        document.getElementById("dobBlank").innerHTML="Date of birth cannot be blank";
+    function validDOB(dob) {
+      var uid_len = dob.length;
+      if (uid_len === 0) {
+        document.getElementById("dobBlank").innerHTML =
+          "Date of birth cannot be blank";
         return false;
+      } else {
+        document.getElementById("dobBlank").innerHTML = "";
+      }
+      return true;
     }
-    else{
-        document.getElementById("dobBlank").innerHTML="";
-    }
-    return true;
-  }
 
-  function validGender(gender){
-    var uid_len = gender.length;
-    if (uid_len == 0)
-    {
-        document.getElementById("genderBlank").innerHTML="Gender cannot be blank";
+    function validGender(gender) {
+      var uid_len = gender.length;
+      if (uid_len === 0) {
+        document.getElementById("genderBlank").innerHTML =
+          "Gender cannot be blank";
         return false;
+      } else {
+        document.getElementById("genderBlank").innerHTML = "";
+      }
+      return true;
     }
-    else{
-        document.getElementById("genderBlank").innerHTML="";
-    }
-    return true;
-  }
-
   };
 
   const handleClear = () => {
@@ -83,10 +91,10 @@ const PatientSearch = () => {
     setLastName("");
     setDob("");
     setGender("");
-    document.getElementById("fnameNameBlank").innerHTML="";
-    document.getElementById("lnameNameBlank").innerHTML="";
-    document.getElementById("dobBlank").innerHTML="";
-    document.getElementById("genderBlank").innerHTML="";
+    document.getElementById("fnameNameBlank").innerHTML = "";
+    document.getElementById("lnameNameBlank").innerHTML = "";
+    document.getElementById("dobBlank").innerHTML = "";
+    document.getElementById("genderBlank").innerHTML = "";
   };
 
   return (
@@ -103,7 +111,10 @@ const PatientSearch = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <label id="fnameNameBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
+            <label
+              id="fnameNameBlank"
+              style={{ color: "red", height: "15px", fontSize: "15px" }}
+            ></label>
           </div>
           <div className="col-6">
             <label>Last Name*</label>
@@ -114,7 +125,10 @@ const PatientSearch = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-            <label id="lnameNameBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
+            <label
+              id="lnameNameBlank"
+              style={{ color: "red", height: "15px", fontSize: "15px" }}
+            ></label>
           </div>
         </div>
         <div className="customColumn">
@@ -127,7 +141,10 @@ const PatientSearch = () => {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
             />
-            <label id="dobBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
+            <label
+              id="dobBlank"
+              style={{ color: "red", height: "15px", fontSize: "15px" }}
+            ></label>
           </div>
           <div className="col-6">
             <label>Gender*</label>
@@ -144,7 +161,10 @@ const PatientSearch = () => {
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
-            <label id="genderBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
+            <label
+              id="genderBlank"
+              style={{ color: "red", height: "15px", fontSize: "15px" }}
+            ></label>
           </div>
         </div>
 

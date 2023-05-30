@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { getUserDetailsFromDatabase } from "../handlers/db";
+import { getUserDetailsFromDatabase } from "../handlers/dynamoDb";
 
 export const getUserDetails = (req, res) => {
   const userObj = _.get(req, "body", undefined);

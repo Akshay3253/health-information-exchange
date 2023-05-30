@@ -11,7 +11,7 @@ export default function withAuthCheck(WrappedComponent) {
     componentDidMount() {
       const that = this;
       const { loginDetails } = this.props;
-      if (!loginDetails?.userName) {
+      if (!loginDetails?.userExists) {
         that.redirection();
       }
     }

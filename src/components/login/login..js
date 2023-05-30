@@ -16,7 +16,9 @@ class Login extends Component {
       password: "",
       loginDetails: "",
       usernameError: false,
-      passwordError: false
+      passwordError: false,
+      redirectToHomeScreen: false,
+      showInvalidUserMessage: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,23 +27,19 @@ class Login extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.loginDetails !== state.loginDetails) {
-      if (props.loginDetails?.role) {
-        const { navigate } = props;
-        navigate(DASHBOARD);
+      if (props.loginDetails?.userExists === true)
+        return {
+          loginDetails: props.loginDetails,
+          redirectToHomeScreen: true,
+          showInvalidUserMessage: false,
+        };
+      else if (props.loginDetails?.userExists === false) {
+        return { showInvalidUserMessage: true };
       }
-      return {
-        loginDetails: props.loginDetails,
-      };
     }
 
     return null; // No change to state
   }
-
-  // componentDidUpdate() {
-  //     if (this.state.loginDetails?.role!=='' & this.state.usernameError===false & this.state.passwordError===false) {
-  //     this.handleRedirection();
-  //   }
-  // }
 
   handleChange(event) {
     const { name, value } = event.target;
@@ -56,36 +54,41 @@ class Login extends Component {
       username: this.state.username,
       key: encryptData(this.state.password),
     };
-    if (this.validateUserName(this.state.username) & this.validatePwd(this.state.password)) {
+    if (
+      this.validateUserName(this.state.username) &
+      this.validatePwd(this.state.password)
+    ) {
       this.props.checkUserDetails(userDetails);
     }
   }
 
   validatePwd(pwd) {
-    if (pwd === '' || pwd.length < 0) {
+    if (pwd === "" || pwd.length < 0) {
       this.setState({
         passwordError: true,
+        showInvalidUserMessage: false,
       });
       return false;
-    }
-    else {
+    } else {
       this.setState({
         passwordError: false,
+        showInvalidUserMessage: false,
       });
       return true;
     }
   }
 
   validateUserName(userName) {
-    if (userName === '' || userName.length < 0) {
+    if (userName === "" || userName.length < 0) {
       this.setState({
         usernameError: true,
+        showInvalidUserMessage: false,
       });
       return false;
-    }
-    else {
+    } else {
       this.setState({
         usernameError: false,
+        showInvalidUserMessage: false,
       });
       return true;
     }
@@ -97,11 +100,20 @@ class Login extends Component {
   }
 
   render() {
-
+    if (this.state.redirectToHomeScreen) {
+      this.handleRedirection();
+    }
     return (
       <div id="loginform">
         <FormHeader title="Login" />
-        <div>
+        <form>
+          <div className="text-center">
+            {this.state.showInvalidUserMessage ? (
+              <label id="UsernameBlank" className="customError">
+                Invalid Username or Password
+              </label>
+            ) : null}
+          </div>
           <FormInput
             description="Username"
             placeholder="Enter your username"
@@ -110,7 +122,11 @@ class Login extends Component {
             value={this.state.username}
             onChange={this.handleChange}
           />
-          {this.state.usernameError ? <label id="UsernameBlank" className="customError">Username can not be blank</label> : null}
+          {this.state.usernameError ? (
+            <label id="UsernameBlank" className="customError">
+              Username can not be blank
+            </label>
+          ) : null}
           <FormInput
             description="Password"
             placeholder="Enter your password"
@@ -119,19 +135,21 @@ class Login extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           />
-          {this.state.passwordError ? <label id="PasswordBlank" className="customError">Password can not be blank</label> : null}
+          {this.state.passwordError ? (
+            <label id="PasswordBlank" className="customError">
+              Password can not be blank
+            </label>
+          ) : null}
           <FormButton title="Log in" submitHandler={this.handleSubmit} />
-        </div>
+        </form>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const counter = state.counter;
   const loginDetails = state.loginDetails;
   return {
-    counter,
     loginDetails,
   };
 };
