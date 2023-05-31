@@ -1,4 +1,5 @@
 export const BASE = "/";
+export const baseURL = "http://localhost:5000";
 
 export const LOGIN = `${BASE}login`;
 export const DASHBOARD = `${BASE}dashboard`;

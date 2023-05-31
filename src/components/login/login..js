@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { DASHBOARD } from "../../common/constant";
 import { withRouter } from "../../common/withRouter";
-import { requestLoginDetails, retrieveTesting } from "../../actions/testAction";
+import { requestLoginDetails } from "../../actions/testAction";
 import { encryptData } from "../../common/encryption";
 import FormHeader from "../reusable/formHeader";
 import FormInput from "../reusable/formInput";
@@ -102,9 +102,6 @@ class Login extends Component {
   }
 
   render() {
-    // if (this.state.redirectToHomeScreen) {
-    //   this.handleRedirection();
-    // }
     return (
       <div id="loginform">
         <FormHeader title="Login" />
@@ -157,9 +154,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  increment: () => {
-    dispatch(retrieveTesting());
-  },
   checkUserDetails: (userDetails) => {
     dispatch(requestLoginDetails(userDetails));
   },
