@@ -1,207 +1,240 @@
-import React, { useState } from "react";
-import FormButton from "../reusable/formButton";
+import React, { Component } from "react";
 import FormHeader from "../reusable/formHeader";
+import FormInput from "../reusable/formInput";
+import FormButton from "../reusable/formButton";
 
-const UploadImage = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [dob, setDob] = useState("");
-  const [gender, setGender] = useState("");
-  const [files, setFiles] = useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validate the mandatory fields
-    if (validFirstName(firstName,1,50) & validLastName(lastName,1,50) & validDOB(dob) & validGender(gender) & validFile(files)) {
-      // Reset the form
-      setFirstName("");
-      setLastName("");
-      setDob("");
-      setGender("");
-      setFiles([]);
-
-      alert("Images uploaded for the patient successfully.");
-      
-      return;
-    }
-
-    function validFirstName(firstName,min,max){
-      var uid_len = firstName.length;
-      if (uid_len == 0 || uid_len <= min || uid_len > max)
-      {
-          document.getElementById("fnameNameBlank").innerHTML="First Name should be between ".concat(min).concat(" to ").concat(max).concat(" characters");
-          return false;
-      }
-      else{
-          document.getElementById("fnameNameBlank").innerHTML="";
-      }
-      return true;
+class UploadImage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: "",
+      lastName: "",
+      dob: "",
+      gender: "",
+      files: [],
+      fileName : "",
+      firstNameError: false,
+      lastNameError: false,
+      dobError: false,
+      genderError: false,
+      fileError: false
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-    function validLastName(lastName,min,max){
-      var uid_len = lastName.length;
-      if (uid_len == 0 || uid_len <= min || uid_len > max)
-      {
-          document.getElementById("lnameNameBlank").innerHTML="Last Name should be between ".concat(min).concat(" to ").concat(max).concat(" characters");
-          return false;
-      }
-      else{
-          document.getElementById("lnameNameBlank").innerHTML="";
-      }
-      return true;
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
   }
 
-  function validDOB(dob){
-    var uid_len = dob.length;
-    if (uid_len == 0)
-    {
-        document.getElementById("dobBlank").innerHTML="Date of birth cannot be blank";
-        return false;
-    }
-    else{
-        document.getElementById("dobBlank").innerHTML="";
-    }
-    return true;
-  }
-
-  function validGender(gender){
-    var uid_len = gender.length;
-    if (uid_len == 0)
-    {
-        document.getElementById("genderBlank").innerHTML="Gender cannot be blank";
-        return false;
-    }
-    else{
-        document.getElementById("genderBlank").innerHTML="";
-    }
-    return true;
-  }
-
-  function validFile(file){
-    var uid_len = file.length;
-    if (uid_len == 0)
-    {
-        document.getElementById("fileBlank").innerHTML="Please select atleast 1 file to upload";
-        return false;
-    }
-    else{
-        document.getElementById("fileBlank").innerHTML="";
-    }
-    return true;
-  }
-
-  };
-
-  const handleFileChange = (e) => {
+  handleFileChange = (e) => {
     const fileList = Array.from(e.target.files);
-    // Check file size before adding to state
-    const filteredFiles = fileList.filter(
-      (file) => file.size <= 10 * 1024 * 1024
-    ); // 10MB limit
-    setFiles(filteredFiles);
-  };
+     // Check file size before adding to state
+     const filteredFiles = fileList.filter(
+       (file) => file.size <= 10 * 1024 * 1024
+     );
+     this.setState({
+      files: filteredFiles
+     });
+  }
 
-  const handleClear = () => {
-    setFirstName("");
-    setLastName("");
-    setDob("");
-    setGender("");
-    setFiles([]);
-    document.getElementById("fnameNameBlank").innerHTML="";
-    document.getElementById("lnameNameBlank").innerHTML="";
-    document.getElementById("dobBlank").innerHTML="";
-    document.getElementById("genderBlank").innerHTML="";
-    document.getElementById("fileBlank").innerHTML="";
-  };
+  handleSubmit(event) {
+    event.preventDefault();
+    const patientDetails = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      dob: this.state.dob,
+      gender: this.state.gender,
+      files: this.state.files
+    };
+    if (this.validateFirstName(this.state.firstName) & this.validateLastName(this.state.lastName) & this.validateDob(this.state.dob) & this.validateGender(this.state.gender) & this.validateFile(this.state.files)) {
+      alert("Uploading files.....");
+    }
+  }
 
-  return (
-    <div id="uploadForm">
-      <FormHeader title="Upload Files" />
-      <div className="container">
+  handleClear = () => {
+    this.setState({
+      firstName: "",
+      lastName: "",
+      dob: "",
+      gender: "",
+      files: [],
+      fileName : "",
+      firstNameError: false,
+      lastNameError: false,
+      dobError: false,
+      genderError: false,
+      fileError: false
+    });
+  }
+
+  validateFirstName(firstName) {
+    if (firstName === '' || firstName.length < 0) {
+      this.setState({
+        firstNameError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        firstNameError: false,
+      });
+      return true;
+    }
+  }
+
+  validateLastName(lastName) {
+    if (lastName === '' || lastName.length < 0) {
+      this.setState({
+        lastNameError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        lastNameError: false,
+      });
+      return true;
+    }
+  }
+
+  validateDob(dob) {
+    if (dob === '' || dob.length < 0) {
+      this.setState({
+        dobError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        dobError: false,
+      });
+      return true;
+    }
+  }
+
+  validateGender(gender) {
+    if (gender === '' || gender.length < 0) {
+      this.setState({
+        genderError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        genderError: false,
+      });
+      return true;
+    }
+  }
+
+  validateFile(files) {
+    if (files.length === 0) {
+      this.setState({
+        fileError: true,
+      });
+      return false;
+    }
+    else {
+      this.setState({
+        fileError: false,
+      });
+      return true;
+    }
+  }
+
+  render() {
+
+    return (
+      <div id="patientuploadform">
+        <FormHeader title="Upload Files" />
+        <div>
         <div className="customColumn">
-          <div className="col-6">
-            <label>First Name*</label>
-            <input
-              type="text"
-              placeholder="Enter patient's first name"
-              name="fname"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <label id="fnameNameBlank" style={{color: "red", height: "15px", fontSize: "15px"}}>
-            </label>
+        <div className="col-6">
+          <FormInput
+            description="First Name"
+            placeholder="Enter patient's first name"
+            type="text"
+            name="firstName"
+            value={this.state.firstName}
+            onChange={this.handleChange}
+          />
+          {this.state.firstNameError ? <label id="FirstNameBlank" className="customError">First Name can not be blank</label> : null}
+        </div>
+        <div className="col-6">
+          <FormInput
+            description="Last Name"
+            placeholder="Enter patient's last name"
+            type="text"
+            name="lastName"
+            value={this.state.lastName}
+            onChange={this.handleChange}
+          />
+          {this.state.lastNameError ? <label id="LastNameBlank" className="customError">Last Name can not be blank</label> : null}
+        </div>
+        </div>
+        <div className="customColumn">
+        <div className="col-6">
+          <FormInput
+            description="Date of Birth"
+            placeholder="Enter patient's date of birth"
+            type="date"
+            name="dob"
+            value={this.state.dob}
+            onChange={this.handleChange}
+          />
+          {this.state.dobError ? <label id="DobBlank" className="customError">Date of Birth can not be blank</label> : null}
+        </div>
+        <div className="col-6">
+          <div className="customRow">
+            <label>Gender</label>
+          <select
+            description="Gender"
+            placeholder="Select patient's gender"
+            type="select"
+            name="gender"
+            value={this.state.gender}
+            onChange={this.handleChange}
+          >
+          <option disabled value="">Select patient's gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+          </select>
           </div>
-          <div className="col-6">
-            <label>Last Name*</label>
-            <input
-              placeholder="Enter patient's last name"
-              type="text"
-              name="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <label id="lnameNameBlank" style={{color: "red", height: "15px", fontSize: "15px"}}>
-            </label>
+          {this.state.genderError ? <label id="GenderBlank" className="customError">Gender can not be blank</label> : null}
           </div>
         </div>
         <div className="customColumn">
-          <div className="col-6">
-            <label>Date of Birth*</label>
-            <input
-              placeholder="Enter patient's date of birth"
-              type="date"
-              name="dob"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-            />
-            <label id="dobBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
+        <div className="col-6">
+        <div className="customRow">
+            <label>File Upload (Max 10MB)</label>
+            <input type="file" id="file" name="file" onChange={this.handleFileChange} multiple />
           </div>
-          <div className="col-6">
-            <label>Gender*</label>
-            <select
-              id="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            >
-              <option disabled value="">
-                Select patient's gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            <label id="genderBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
+          {this.state.fileError ? <label id="FileBlank" className="customError">Please select atleast 1 File</label> : null}
+        </div>
+        <div className="col-6">
+             {this.state.files.length > 0 ? <label>Selected Files:</label> : null}
+              {this.state.files.map((file, index) => (
+                <div key={index}>{file.name}</div>
+              ))}
           </div>
         </div>
         <div className="customColumn">
-          <div className="col-6">
-            <label>File Upload (Max 10MB):</label>
-            <input type="file" id="file" onChange={handleFileChange} multiple />
-            <label id="fileBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
-          </div>
-
-          <div className="col-6">
-            {files.length > 0 ? <label>Selected Files:</label> : null}
-            {files.map((file, index) => (
-              <div key={index}>{file.name}</div>
-            ))}
+        <div className="col-6">
+          <FormButton title="Search" submitHandler={this.handleSubmit} />
+        </div>
+        <div className="col-6">
+          <FormButton title="Clear" submitHandler={this.handleClear} />
           </div>
         </div>
-
-        <div className="customColumn">
-          <div className="col-6">
-            <FormButton title="Submit" submitHandler={handleSubmit} />
-          </div>
-
-          <div className="col-6">
-            <FormButton title="Clear" submitHandler={handleClear} />
-          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default UploadImage;
