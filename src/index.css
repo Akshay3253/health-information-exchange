@@ -49,7 +49,20 @@ html {
    border-style: solid;
  }
 
- #patientseatchform {
+ #patientsearchform {
+  max-width: 800px;
+  min-width: 800px;
+  max-height: 800px;
+  width: 30%;
+  height: 60%;
+  margin: 11% auto;
+  background-color: #ffffff;
+  border-radius: 25px;
+  border-color: gray;
+  border-style: solid;
+}
+
+#patientuploadform {
   max-width: 800px;
   min-width: 800px;
   max-height: 800px;

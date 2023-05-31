@@ -116,7 +116,7 @@ class PatientSearch extends Component {
   render() {
 
     return (
-      <div id="patientseatchform">
+      <div id="patientsearchform">
         <FormHeader title="Search Patient" />
         <div>
         <div className="customColumn">
