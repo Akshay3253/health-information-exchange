@@ -7,19 +7,13 @@ const UploadImage = () => {
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
-  const [fileName, setFileName] = useState("");
   const [files, setFiles] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // Validate the mandatory fields
-    if (
-      validFirstName(firstName, 1, 50) &
-      validLastName(lastName, 1, 50) &
-      validDOB(dob) &
-      validGender(gender) &
-      validFile(files)
-    ) {
+    if (validFirstName(firstName,1,50) & validLastName(lastName,1,50) & validDOB(dob) & validGender(gender) & validFile(files)) {
       // Reset the form
       setFirstName("");
       setLastName("");
@@ -28,91 +22,84 @@ const UploadImage = () => {
       setFiles([]);
 
       alert("Images uploaded for the patient successfully.");
-
+      
       return;
     }
 
-    function validFirstName(firstName, min, max) {
+    function validFirstName(firstName,min,max){
       var uid_len = firstName.length;
-      if (uid_len === 0 || uid_len <= min || uid_len > max) {
-        document.getElementById("fnameNameBlank").innerHTML =
-          "First Name should be between "
-            .concat(min)
-            .concat(" to ")
-            .concat(max)
-            .concat(" characters");
-        return false;
-      } else {
-        document.getElementById("fnameNameBlank").innerHTML = "";
+      if (uid_len == 0 || uid_len <= min || uid_len > max)
+      {
+          document.getElementById("fnameNameBlank").innerHTML="First Name should be between ".concat(min).concat(" to ").concat(max).concat(" characters");
+          return false;
+      }
+      else{
+          document.getElementById("fnameNameBlank").innerHTML="";
       }
       return true;
-    }
+  }
 
-    function validLastName(lastName, min, max) {
+    function validLastName(lastName,min,max){
       var uid_len = lastName.length;
-      if (uid_len === 0 || uid_len <= min || uid_len > max) {
-        document.getElementById("lnameNameBlank").innerHTML =
-          "Last Name should be between "
-            .concat(min)
-            .concat(" to ")
-            .concat(max)
-            .concat(" characters");
-        return false;
-      } else {
-        document.getElementById("lnameNameBlank").innerHTML = "";
+      if (uid_len == 0 || uid_len <= min || uid_len > max)
+      {
+          document.getElementById("lnameNameBlank").innerHTML="Last Name should be between ".concat(min).concat(" to ").concat(max).concat(" characters");
+          return false;
+      }
+      else{
+          document.getElementById("lnameNameBlank").innerHTML="";
       }
       return true;
-    }
+  }
 
-    function validDOB(dob) {
-      var uid_len = dob.length;
-      if (uid_len === 0) {
-        document.getElementById("dobBlank").innerHTML =
-          "Date of birth cannot be blank";
+  function validDOB(dob){
+    var uid_len = dob.length;
+    if (uid_len == 0)
+    {
+        document.getElementById("dobBlank").innerHTML="Date of birth cannot be blank";
         return false;
-      } else {
-        document.getElementById("dobBlank").innerHTML = "";
-      }
-      return true;
     }
+    else{
+        document.getElementById("dobBlank").innerHTML="";
+    }
+    return true;
+  }
 
-    function validGender(gender) {
-      var uid_len = gender.length;
-      if (uid_len === 0) {
-        document.getElementById("genderBlank").innerHTML =
-          "Gender cannot be blank";
+  function validGender(gender){
+    var uid_len = gender.length;
+    if (uid_len == 0)
+    {
+        document.getElementById("genderBlank").innerHTML="Gender cannot be blank";
         return false;
-      } else {
-        document.getElementById("genderBlank").innerHTML = "";
-      }
-      return true;
     }
+    else{
+        document.getElementById("genderBlank").innerHTML="";
+    }
+    return true;
+  }
 
-    function validFile(file) {
-      var uid_len = file.length;
-      if (uid_len === 0) {
-        document.getElementById("fileBlank").innerHTML =
-          "Please select atleast 1 file to upload";
+  function validFile(file){
+    var uid_len = file.length;
+    if (uid_len == 0)
+    {
+        document.getElementById("fileBlank").innerHTML="Please select atleast 1 file to upload";
         return false;
-      } else {
-        document.getElementById("fileBlank").innerHTML = "";
-      }
-      return true;
     }
+    else{
+        document.getElementById("fileBlank").innerHTML="";
+    }
+    return true;
+  }
+
   };
 
-  // const handleFileChange = (e) => {
-  //   const fileList = Array.from(e.target.files);
-  //   // Check file size before adding to state
-  //   const filteredFiles = fileList.filter(
-  //     (file) => file.size <= 10 * 1024 * 1024
-  //   ); // 10MB limit
-  //   setFiles(filteredFiles);
-  // };
-
   const handleFileChange = (e) => {
-    setFiles(e.target.files[0]);
-    setFileName(e.target.files[0].name);
+    const fileList = Array.from(e.target.files);
+    // Check file size before adding to state
+    const filteredFiles = fileList.filter(
+      (file) => file.size <= 10 * 1024 * 1024
+    ); // 10MB limit
+    setFiles(filteredFiles);
   };
 
   const handleClear = () => {
@@ -121,17 +108,17 @@ const UploadImage = () => {
     setDob("");
     setGender("");
     setFiles([]);
-    document.getElementById("fnameNameBlank").innerHTML = "";
-    document.getElementById("lnameNameBlank").innerHTML = "";
-    document.getElementById("dobBlank").innerHTML = "";
-    document.getElementById("genderBlank").innerHTML = "";
-    document.getElementById("fileBlank").innerHTML = "";
+    document.getElementById("fnameNameBlank").innerHTML="";
+    document.getElementById("lnameNameBlank").innerHTML="";
+    document.getElementById("dobBlank").innerHTML="";
+    document.getElementById("genderBlank").innerHTML="";
+    document.getElementById("fileBlank").innerHTML="";
   };
 
   return (
     <div id="uploadForm">
       <FormHeader title="Upload Files" />
-      <form className="container">
+      <div className="container">
         <div className="customColumn">
           <div className="col-6">
             <label>First Name*</label>
@@ -142,10 +129,8 @@ const UploadImage = () => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
-            <label
-              id="fnameNameBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+            <label id="fnameNameBlank" style={{color: "red", height: "15px", fontSize: "15px"}}>
+            </label>
           </div>
           <div className="col-6">
             <label>Last Name*</label>
@@ -156,10 +141,8 @@ const UploadImage = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-            <label
-              id="lnameNameBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+            <label id="lnameNameBlank" style={{color: "red", height: "15px", fontSize: "15px"}}>
+            </label>
           </div>
         </div>
         <div className="customColumn">
@@ -172,10 +155,7 @@ const UploadImage = () => {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
             />
-            <label
-              id="dobBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+            <label id="dobBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
           </div>
           <div className="col-6">
             <label>Gender*</label>
@@ -192,28 +172,21 @@ const UploadImage = () => {
               <option value="female">Female</option>
               <option value="other">Other</option>
             </select>
-            <label
-              id="genderBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+            <label id="genderBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
           </div>
         </div>
         <div className="customColumn">
           <div className="col-6">
             <label>File Upload (Max 10MB):</label>
             <input type="file" id="file" onChange={handleFileChange} multiple />
-            <label
-              id="fileBlank"
-              style={{ color: "red", height: "15px", fontSize: "15px" }}
-            ></label>
+            <label id="fileBlank" style={{color: "red", height: "15px", fontSize: "15px"}}></label>
           </div>
 
           <div className="col-6">
-            {files.length > 0 ? <label>Selected File:</label> : null}
-            {/* {file.map((file, index) => (
+            {files.length > 0 ? <label>Selected Files:</label> : null}
+            {files.map((file, index) => (
               <div key={index}>{file.name}</div>
-            ))} */}
-            <div>{fileName}</div>
+            ))}
           </div>
         </div>
 
@@ -226,7 +199,7 @@ const UploadImage = () => {
             <FormButton title="Clear" submitHandler={handleClear} />
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
