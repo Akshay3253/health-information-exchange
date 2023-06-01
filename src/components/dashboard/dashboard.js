@@ -51,7 +51,7 @@ class Dashboard extends Component {
             >
               <FontAwesomeIcon icon="upload" size="2x" beatFade />
               <Card.Title>
-                <h2>Upload</h2>
+                <h2>Upload Document</h2>
               </Card.Title>
             </Card.Body>
           </Card>

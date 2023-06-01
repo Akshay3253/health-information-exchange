@@ -55,7 +55,7 @@ html {
   max-height: 800px;
   width: 30%;
   height: 60%;
-  margin: 11% auto;
+  margin: 10% auto;
   background-color: #ffffff;
   border-radius: 25px;
   border-color: gray;
@@ -67,7 +67,7 @@ html {
   min-width: 800px;
   width: 30%;
   height: 60%;
-  margin: 11% auto;
+  margin: 6% auto;
   background-color: #ffffff;
   border-radius: 25px;
   border-color: gray;
@@ -318,4 +318,54 @@ html {
     background-clip: text;
     font-family: 'Dancing Script', cursive;
   }
+    .dropdown-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+        .dropdown-icon {
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+
+                .dropdown {
+                  position: relative;
+                }
+
+                                        .dropdown-content {
+                                          /* display: none; */
+                                          width: 10rem;
+                                          position: absolute;
+                                          top: 100%;
+                                          right: 0;
+                                          background-color: #f0f0f0;
+                                          padding: 10px;
+                                        }
+
+                                                                                .dropdown:hover .dropdown-content {
+                                                                                  display: block;
+                                                                                }
+
+                                                                                                                                                                    .dropdown-content a {
+                                                                                                                                                                      display: block;
+                                                                                                                                                                      padding: 5px;
+                                                                                                                                                                      color: #333;
+                                                                                                                                                                      text-decoration: none;
+                                                                                                                                                                    }
+                                                                                  
+                                                                                                                                                                    .dropdown-content a:hover {
+                                                                                                                                                                      background-color: #ddd;
+                                                                                                                                                                    }
+/* 
+    
   
+    
+  
+     
+  
+ 
+  
+     
+  
+    */

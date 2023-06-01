@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import FormInput from "../reusable/formInput";
 import FormButton from "../reusable/formButton";
 import FormHeader from "../reusable/formHeader";
-import { requestSearchPatient } from "../../actions/testAction";
+import {
+  requestSearchPatient,
+  clearSearchPatient,
+} from "../../actions/testAction";
 import { connect } from "react-redux";
 import { withRouter } from "../../common/withRouter";
 import { MEDICATIONDATA } from "../../common/constant";
@@ -26,17 +29,13 @@ class PatientSearch extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.clearPatientSearchDetails();
+  }
+
   static getDerivedStateFromProps(props, state) {
-    console.log("step 1");
-    if (
-      props.patientSearchDetails !== state.patientSearchDetails &&
-      !state.showInvalidSearchMessage
-    ) {
-      console.log("step 2");
-      console.log(JSON.stringify(props) + " " + JSON.stringify(state));
-      console.log(props.patientSearchDetails);
+    if (props.patientSearchDetails !== state.patientSearchDetails) {
       if (props.patientSearchDetails?.patientExists === true) {
-        console.log("step 3");
         const { navigate } = props;
         navigate(MEDICATIONDATA);
         return {
@@ -44,7 +43,6 @@ class PatientSearch extends Component {
           showInvalidSearchMessage: false,
         };
       } else if (props.patientSearchDetails?.patientExists === false) {
-        console.log("step 4");
         return { showInvalidSearchMessage: true };
       }
     }
@@ -61,24 +59,26 @@ class PatientSearch extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("HANDLE SUBMIT");
-    this.setState({ showInvalidSearchMessage: false }, () => {
-      if (
-        this.validateFirstName(this.state.firstName) &
-        this.validateLastName(this.state.lastName) &
-        this.validateDob(this.state.dob) &
-        this.validateGender(this.state.gender)
-      ) {
-        const patientDetails = {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          dob: this.state.dob,
-          gender: this.state.gender,
-        };
+    this.setState(
+      { showInvalidSearchMessage: false, patientSearchDetails: {} },
+      () => {
+        if (
+          this.validateFirstName(this.state.firstName) &
+          this.validateLastName(this.state.lastName) &
+          this.validateDob(this.state.dob) &
+          this.validateGender(this.state.gender)
+        ) {
+          const patientDetails = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            dob: this.state.dob,
+            gender: this.state.gender,
+          };
 
-        this.props.searchPatient(patientDetails);
+          this.props.searchPatient(patientDetails);
+        }
       }
-    });
+    );
   }
 
   handleClear = () => {
@@ -269,6 +269,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   searchPatient: (patientDetails) => {
     dispatch(requestSearchPatient(patientDetails));
+  },
+
+  clearPatientSearchDetails: () => {
+    dispatch(clearSearchPatient());
   },
 });
 
