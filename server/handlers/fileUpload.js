@@ -12,30 +12,29 @@ const upload = (fileValue, fileNameNew) => {
     const s3 = new AWS.S3();
     const timeStamp = new Date().toISOString().replace(/[^0-9]/g, "");
     console.log(fileNameNew + " " + timeStamp);
+    var buf = Buffer.from(
+      fileValue.content.replace(/^data:image\/\w+;base64,/, ""),
+      "base64"
+    );
     const params = {
       Bucket: "cnpimageupload",
       Key: fileNameNew + timeStamp + ".png",
-      Body: fileValue.content,
+      Body: buf,
+      ContentEncoding: "base64",
+      ContentType: "image/png",
     };
-    s3.upload(params, (err, data) => {
+    s3.putObject(params, (err, data) => {
       if (err) {
         console.error("Error uploading file:", err);
         reject(err);
       } else {
         console.log("File uploaded successfully.", data.Location);
         let uploadDetails = {};
-        if (data?.Location) {
-          uploadDetails = {
-            fileUploadSuccess: true,
-            ...data,
-          };
-          resolve(uploadDetails);
-        } else {
-          uploadDetails = {
-            fileUploadSuccess: false,
-          };
-          reject("File Upload failed");
-        }
+        uploadDetails = {
+          fileUploadSuccess: true,
+          ...data,
+        };
+        resolve(uploadDetails);
       }
     });
   });
