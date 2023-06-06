@@ -1,9 +1,24 @@
+import bodyParser from "body-parser";
+
 const express = require("express");
 require("dotenv").config();
 const apiRoutes = require("./routes/index");
 
 const app = express();
 const port = 5000;
+
+app.use(
+  bodyParser.urlencoded({
+    extended: "true",
+    limit: "50mb",
+  })
+); // parse application/x-www-form-urlencoded
+
+app.use(
+  bodyParser.json({
+    limit: "50mb",
+  })
+); // parse application/json
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());

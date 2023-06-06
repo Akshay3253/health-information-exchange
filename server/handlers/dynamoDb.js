@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
-import { uuid } from "uuidv4";
-import _ from "lodash";
+//import { uuid } from "uuidv4";
+
 let aws_remote_config = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,

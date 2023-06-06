@@ -8,3 +8,11 @@ export const loginApi = async (payload) => {
     },
   });
 };
+
+export const fileUploadApi = async (payload) => {
+  return await axios.post(`${baseURL}/api/fileUpload`, payload, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

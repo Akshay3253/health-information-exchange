@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aws-sdk": "^2.1380.0",
     "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -32,7 +33,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "server": "nodemon --exec babel-node ./server/server.js",
+    "server": "nodemon --exec babel-node --inspect=7665 ./server/server.js",
     "client": "react-scripts start",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "react-scripts build",

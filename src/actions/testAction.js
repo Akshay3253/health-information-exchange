@@ -15,9 +15,17 @@ export const CLEAR_LOGGED_IN_USER_DETAILS = "CLEAR_LOGGED_IN_USER_DETAILS";
 
 export const retrieveTesting = createAction(RETRIEVE_TESTING);
 
+export const REQUEST_FILE_UPLOAD = "REQUEST_FILE_UPLOAD";
+
+export const RETRIEVE_FILE_UPLOAD = "RETRIEVE_FILE_UPLOAD";
+
 export const requestLoginDetails = createAction(REQUEST_LOGIN_DETAILS);
 
 export const retrieveLoginDetails = createAction(RETRIEVE_LOGIN_DETAILS);
+
+export const requestFileUpload = createAction(REQUEST_FILE_UPLOAD);
+
+export const retrieveFileUpload = createAction(RETRIEVE_FILE_UPLOAD);
 
 export const requestSearchPatient = createAction(REQUEST_SEARCH_PATIENT);
 
