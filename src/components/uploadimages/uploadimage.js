@@ -16,6 +16,7 @@ class UploadImage extends Component {
       gender: "",
       files: [],
       fileName: "",
+      userName: "",
       fileUploadSuccess: "",
       firstNameError: false,
       lastNameError: false,
@@ -89,6 +90,7 @@ class UploadImage extends Component {
       lastName: this.state.lastName,
       dob: this.state.dob,
       gender: this.state.gender,
+      userName: this.props.userName,
       files: filesData,
     };
     if (
@@ -327,6 +329,7 @@ class UploadImage extends Component {
 
 const mapStateToProps = (state) => ({
   fileUploadSuccess: state.loginDetails.fileUploadSuccess,
+  userName: state.loginDetails.Username,
 });
 
 const mapDispatchToProps = (dispatch) => ({
