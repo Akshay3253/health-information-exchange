@@ -33,7 +33,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "server": "nodemon --exec babel-node --inspect=7665 ./server/server.js",
+    "server": "nodemon --inspect=1993 --exec babel-node ./server/server.js",
     "client": "react-scripts start",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "react-scripts build",

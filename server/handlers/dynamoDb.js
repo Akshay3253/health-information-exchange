@@ -1,5 +1,4 @@
 const AWS = require("aws-sdk");
-//import { uuid } from "uuidv4";
 
 let aws_remote_config = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -87,7 +86,73 @@ export const getPatientSearchResultsFromDatabase = async (data) => {
             patientExists: false,
           });
         } else {
-          resolve({ patientExists: true, ...data.Items[0] });
+          
+          let Medical_Comprehend_ICD_ARR =[];
+          let Medical_Comprehend_SNM_ARR =[];
+          let Medical_Comprehend_RX_ARR =[];
+          let Medical_Comprehend_PHI_ARR =[];
+          {data.Items.map((data) => {
+            Medical_Comprehend_ICD_ARR.push(JSON.parse(data.Medical_Comprehend_ICD.S));
+            Medical_Comprehend_SNM_ARR.push(JSON.parse(data.Medical_Comprehend_SNM.S));
+            Medical_Comprehend_RX_ARR.push(JSON.parse(data.Medical_Comprehend_RX.S));
+            Medical_Comprehend_PHI_ARR.push(JSON.parse(data.Medical_Comprehend_PHI.S));
+          }
+          )};
+
+          let Medical_Comprehend_Data_Arr = [];
+
+          {Medical_Comprehend_ICD_ARR.map((ICD_JSON) => {
+              ICD_JSON.Entities.map((ICD10_JSON) => {
+                let Medical_Comprehend_ICD_Obj = {code: null, desc:null, category:null};
+                Medical_Comprehend_ICD_Obj.code=ICD10_JSON.ICD10CMConcepts[0].Code;
+                Medical_Comprehend_ICD_Obj.desc=ICD10_JSON.ICD10CMConcepts[0].Description;
+                Medical_Comprehend_ICD_Obj.category=ICD10_JSON.Category;
+                Medical_Comprehend_Data_Arr.push(Medical_Comprehend_ICD_Obj);
+            })
+          }
+          )};
+
+          {Medical_Comprehend_SNM_ARR.map((SNM_JSON) => {
+            SNM_JSON.Entities.map((SCT_JSON) => {
+                let Medical_Comprehend_SNM_Obj = {code: null, desc:null, category:null};
+                Medical_Comprehend_SNM_Obj.code=SCT_JSON.SNOMEDCTConcepts[0].Code;
+                Medical_Comprehend_SNM_Obj.desc=SCT_JSON.SNOMEDCTConcepts[0].Description;
+                Medical_Comprehend_SNM_Obj.category=SCT_JSON.Category;
+                Medical_Comprehend_Data_Arr.push(Medical_Comprehend_SNM_Obj);
+            })
+          }
+          )};
+
+          {Medical_Comprehend_RX_ARR.map((RX_JSON) => {
+            RX_JSON.Entities.map((RXNorm_JSON) => {
+                let Medical_Comprehend_RX_Obj = {code: null, desc:null, category:null};
+                Medical_Comprehend_RX_Obj.code=RXNorm_JSON.RxNormConcepts[0].Code;
+                Medical_Comprehend_RX_Obj.desc=RXNorm_JSON.RxNormConcepts[0].Description;
+                Medical_Comprehend_RX_Obj.category=RXNorm_JSON.Category;
+                Medical_Comprehend_Data_Arr.push(Medical_Comprehend_RX_Obj);
+            })
+          }
+          )};
+
+          {Medical_Comprehend_PHI_ARR.map((PHI_JSON) => {
+            PHI_JSON.Entities.map((ProtectedHI_JSON) => {
+                let Medical_Comprehend_PHI_Obj = {code: null, desc:null, category:null};
+                Medical_Comprehend_PHI_Obj.code=ProtectedHI_JSON.Type;
+                Medical_Comprehend_PHI_Obj.desc=ProtectedHI_JSON.Text;
+                Medical_Comprehend_PHI_Obj.category=ProtectedHI_JSON.Category;
+                Medical_Comprehend_Data_Arr.push(Medical_Comprehend_PHI_Obj);
+            })
+          }
+          )};
+
+          resolve({ 
+            patientExists: true,  
+            Medical_Data: Medical_Comprehend_Data_Arr,
+            FirstName: fName,
+            LastName: lname,
+            DateOfBirth: dob,
+            Gender: gender
+          });
         }
       }
     });

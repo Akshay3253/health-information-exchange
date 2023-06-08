@@ -82,6 +82,10 @@ html {
    font-size: 2rem;
  }
 
+ #medicationData{
+  margin: 5% auto;
+ }
+
  .customRow {
    display: flex;
    flex-direction: column;
@@ -307,6 +311,15 @@ html {
 
   .medication-table tr:nth-child(even) {
      background-color: #f2f2f2;
+  }
+
+  .bg-primary-dark {
+    background-color: #d1d1d1 !important;
+  }
+
+  .marginleftright {
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   .medication-header {

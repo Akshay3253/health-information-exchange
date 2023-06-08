@@ -1,39 +1,37 @@
 import React from 'react';
 
 const MedicationPage = ({ data }) => {
-  const medicationTypes = Object.keys(data);
-
-  // Divide medication types into groups of three
-  const groupedTypes = [];
-  for (let i = 0; i < medicationTypes.length; i += 3) {
-    groupedTypes.push(medicationTypes.slice(i, i + 3));
-  }
+  // Group the data by category
+  const groupedData = data.reduce((acc, item) => {
+    const { category } = item;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(item);
+    return acc;
+  }, {});
 
   return (
-    <div className="medication-page">
-      {groupedTypes.map((group, index) => (
-        <div key={index} className="table-container">
-          {group.map((type) => (
-            <div key={type} className="medication-container">
-              <h2 className="medication-header">{type}</h2>
-              <table className="medication-table">
-                <thead>
-                  <tr>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data[type].map((medication) => (
-                    <tr key={medication.name}>
-                      <td>{medication.name}</td>
-                      <td>{medication.data}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
+    <div>
+      {Object.keys(groupedData).map(category => (
+        <div key={category} className="col-md-6">
+          <h3>{category.replaceAll('_',' ')}</h3>
+          <table className="table table-bordered">
+            <thead className="thead-light">
+              <tr>
+                <th>Code</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groupedData[category].map(item => (
+                <tr key={item.code}>
+                  <td>{item.code}</td>
+                  <td>{item.desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ))}
     </div>
