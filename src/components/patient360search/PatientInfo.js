@@ -27,7 +27,7 @@ const PatientInfo = ({ firstName, lastName, dob, gender, age }) => {
               <strong>Age:</strong>
             </div>
             <div>
-              {age}
+              {age} years
             </div>
           </div>
         </div>

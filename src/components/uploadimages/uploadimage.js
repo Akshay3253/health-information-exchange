@@ -315,7 +315,7 @@ class UploadImage extends Component {
           </div>
           <div className="customColumn">
             <div className="col-6">
-              <FormButton title="Search" submitHandler={this.handleSubmit} />
+              <FormButton title="Upload" submitHandler={this.handleSubmit} />
             </div>
             <div className="col-6">
               <FormButton title="Clear" submitHandler={this.handleClear} />
