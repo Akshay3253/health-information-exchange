@@ -38,7 +38,7 @@ class MedicationData extends Component {
         const [day, month, year] = dobDate.split("-");
         let today = new Date();
         let age = today.getFullYear() - year;
-        if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
+        if (today.getMonth() < month || (today.getMonth() === month && today.getDate() < day)) {
           age--;
         }
         state.patient.age= age;
