@@ -21,6 +21,7 @@ const MedicationPage = ({ data }) => {
               <tr>
                 <th>Code</th>
                 <th>Description</th>
+                <th>Attributes</th>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@ const MedicationPage = ({ data }) => {
                 <tr key={item.code}>
                   <td>{item.code}</td>
                   <td>{item.desc}</td>
+                  <td>{item.attribute}</td>
                 </tr>
               ))}
             </tbody>
